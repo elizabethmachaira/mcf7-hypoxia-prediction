@@ -1,30 +1,42 @@
 # Predicting Hypoxia in MCF7 Breast Cancer Cells
 
-Classifies hypoxic vs. normoxic breast cancer cells using single-cell gene expression data (DropSeq and SmartSeq protocols), comparing performance across cell lines and sequencing platforms.
+Classifies hypoxic vs. normoxic breast cancer cells from single-cell RNA-seq data (DropSeq and SmartSeq), comparing model performance across cell lines and sequencing protocols.
 
 ## Overview
 
-Hypoxia (low oxygen) drives aggressive tumour behaviour and treatment resistance. This project builds machine learning classifiers on single-cell RNA-seq data to predict cellular hypoxic state, using feature selection and cross-protocol validation.
+Hypoxia drives aggressive tumour behaviour and treatment resistance. This project builds supervised classifiers on high-dimensional single-cell gene expression data (3000 selected genes), using dimensionality reduction and statistical feature selection.
 
-Datasets used:
+Datasets:
 - **DropSeq**: MCF7 and HCC1806 cell lines
-- **SmartSeq**: MCF7 and HCC1806 cell lines (higher sensitivity, lower throughput)
+- **SmartSeq**: MCF7 and HCC1806 cell lines
 
 ## Notebooks
 
 | Notebook | Description |
 |---|---|
-| `finalissimo.ipynb` | Final model and cross-platform evaluation |
-| `MCF7_train.ipynb` | MCF7 DropSeq training and model selection |
+| `finalissimo.ipynb` | Full pipeline: EDA, QC, PCA, t-SNE, k-means, t-test feature selection, classification |
+| `MCF7_train.ipynb` | MCF7 DropSeq training experiments |
 | `AI_Lab_Code.ipynb` | Initial exploration and preprocessing pipeline |
 
 ## Methods
 
-- Normalisation and filtering of high-dimensional gene expression matrices (3000 genes)
-- Feature selection for biologically relevant genes
-- Classification: logistic regression, random forest, SVM
-- Cross-dataset generalisation evaluation
+**Preprocessing & EDA**
+- Quality control: filtering low-count cells, removing duplicates, sparsity analysis
+- Normalisation of read counts
+
+**Dimensionality Reduction & Clustering**
+- PCA and t-SNE for visualisation
+- k-means clustering to explore cell groupings
+
+**Feature Selection**
+- t-test to identify statistically significant differentially expressed genes between hypoxic and normoxic cells
+
+**Classification**
+- Logistic Regression
+- SVM / Linear SVC
+- KNN
+- Feature scaling with `StandardScaler` applied to distance-based models
 
 ## Stack
 
-Python · scikit-learn · pandas · NumPy · matplotlib
+Python · scikit-learn · pandas · NumPy · matplotlib · seaborn · UMAP
